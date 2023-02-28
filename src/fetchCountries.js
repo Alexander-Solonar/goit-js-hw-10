@@ -1,6 +1,8 @@
 import { notiflixInfo } from './index';
 import Notiflix from 'notiflix';
 
+const divCard = document.querySelector('.country-info');
+
 export function fetchCountries(name) {
   fetch(
     `https://restcountries.com/v3.1/name/${name}?fields=name,capital,population,flags,languages`
@@ -15,7 +17,11 @@ export function fetchCountries(name) {
       if (resp.length > 10) {
         notiflixInfo();
       } else if (resp.length === 1) {
+        ulList.innerHTML = '';
         marcurCardInfo(resp);
+      } else if (resp.length > 1 && resp.length <= 10) {
+        divCard.innerHTML = '';
+        foo(resp);
       }
     })
     .catch(error => {
@@ -23,7 +29,7 @@ export function fetchCountries(name) {
     });
 }
 
-const divCard = document.querySelector('.country-info');
+const ulList = document.querySelector('.country-list');
 
 function marcurCardInfo(info) {
   return (divCard.innerHTML = `<div>
@@ -35,4 +41,13 @@ function marcurCardInfo(info) {
     ' '
   )}</span></p>
 </div>`);
+}
+
+function foo(el) {
+  ulList.innerHTML = el.reduce((total, e) => {
+    return (
+      total +
+      `<li><img src="${e.flags.svg}" alt="" width='40'> <h2>${e.name.official}</h2></li>`
+    );
+  }, '');
 }

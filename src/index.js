@@ -23,10 +23,3 @@ export function notiflixInfo() {
     'Too many matches found. Please enter a more specific name.'
   );
 }
-
-// const obj = {
-//   name: {
-//     age: 32,
-//   },
-// };
-// console.log(obj['name']);
