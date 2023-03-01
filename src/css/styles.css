@@ -18,3 +18,49 @@ body {
   max-width: 320px;
   margin-bottom: 16px;
 }
+
+h2 {
+  margin: 0;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.country-list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.country-item {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.country-name {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.list-info {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  margin-top: 20px;
+}
+
+.item-info {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.span-info {
+  font-size: 26px;
+  font-weight: 400;
+  padding-left: 10px;
+}
