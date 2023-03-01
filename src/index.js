@@ -1,11 +1,12 @@
-import debounce from 'lodash.debounce';
 import './css/styles.css';
+import debounce from 'lodash.debounce';
 import Notiflix from 'notiflix';
 import { fetchCountries } from './fetchCountries';
 
 const divCard = document.querySelector('.country-info');
 const ulList = document.querySelector('.country-list');
 const userInput = document.querySelector('#search-box');
+
 const DEBOUNCE_DELAY = 300;
 
 userInput.addEventListener('input', debounce(inputCountry, DEBOUNCE_DELAY));
@@ -19,12 +20,6 @@ function inputCountry(event) {
   }
 
   fetchCountries(name)
-    .then(respons => {
-      if (!respons.ok) {
-        throw new Error();
-      }
-      return respons.json();
-    })
     .then(checkValidity)
     .catch(() => {
       divCard.innerHTML = '';
