@@ -64,3 +64,7 @@ ul {
   font-weight: 400;
   padding-left: 10px;
 }
+
+#search-box:focus {
+  outline-color: rgb(19, 125, 187);
+}
