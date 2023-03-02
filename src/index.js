@@ -28,6 +28,20 @@ function inputCountry(event) {
     });
 }
 
+function checkValidity(respon) {
+  if (respon.length > 10) {
+    Notiflix.Notify.info(
+      'Too many matches found. Please enter a more specific name.'
+    );
+  } else if (respon.length === 1) {
+    ulList.innerHTML = '';
+    createMarkupCard(...respon);
+  } else {
+    divCard.innerHTML = '';
+    createMarkupListCountry(respon);
+  }
+}
+
 function createMarkupCard({ flags, name, capital, population, languages }) {
   const language = Object.values(languages).join(', ');
 
@@ -48,18 +62,4 @@ function createMarkupListCountry(country) {
       `<li class=country-item><img src="${flags.svg}" alt="" width='50' height='40';> <h2>${name.common}</h2></li>`
     );
   }, '');
-}
-
-function checkValidity(respon) {
-  if (respon.length > 10) {
-    Notiflix.Notify.info(
-      'Too many matches found. Please enter a more specific name.'
-    );
-  } else if (respon.length === 1) {
-    ulList.innerHTML = '';
-    createMarkupCard(...respon);
-  } else {
-    divCard.innerHTML = '';
-    createMarkupListCountry(respon);
-  }
 }
