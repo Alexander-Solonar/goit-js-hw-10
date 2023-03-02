@@ -24,34 +24,16 @@ function inputCountry(event) {
     .catch(() => {
       divCard.innerHTML = '';
       ulList.innerHTML = '';
-      notiflixFailure();
+      Notiflix.Notify.failure('Oops, there is no country with that name');
     });
 }
 
-function notiflixInfo() {
-  Notiflix.Notify.info(
-    'Too many matches found. Please enter a more specific name.'
-  );
-}
-
-function notiflixFailure() {
-  Notiflix.Notify.failure('Oops, there is no country with that name');
-}
-
-function createMarkupCard(info) {
-  const {
-    flags: { svg },
-    name: { official },
-    capital,
-    population,
-    languages,
-  } = info[0];
-
-  const language = Object.values(languages);
+function createMarkupCard({ flags, name, capital, population, languages }) {
+  const language = Object.values(languages).join(', ');
 
   return (divCard.innerHTML = `
-  <div class ="country-name"><img src="${svg}" alt="Flag ${official}" width='40' height='30'>
-  <h1>${official}</h1></div>
+  <div class ="country-name"><img src="${flags.svg}" alt="Flag ${name.official}" width='40' height='30'>
+  <h1>${name.official}</h1></div>
   <ul class="list-info">
   <li class="item-info">Capital:<span class="span-info">${capital}</span></li>
   <li class="item-info">Population:<span class="span-info">${population}</span></li>
@@ -59,8 +41,8 @@ function createMarkupCard(info) {
 </ul>`);
 }
 
-function createMarkupListCountry(info) {
-  ulList.innerHTML = info.reduce((html, { flags, name }) => {
+function createMarkupListCountry(country) {
+  ulList.innerHTML = country.reduce((html, { flags, name }) => {
     return (
       html +
       `<li class=country-item><img src="${flags.svg}" alt="" width='50' height='40';> <h2>${name.common}</h2></li>`
@@ -70,10 +52,12 @@ function createMarkupListCountry(info) {
 
 function checkValidity(respon) {
   if (respon.length > 10) {
-    notiflixInfo();
+    Notiflix.Notify.info(
+      'Too many matches found. Please enter a more specific name.'
+    );
   } else if (respon.length === 1) {
     ulList.innerHTML = '';
-    createMarkupCard(respon);
+    createMarkupCard(...respon);
   } else {
     divCard.innerHTML = '';
     createMarkupListCountry(respon);
